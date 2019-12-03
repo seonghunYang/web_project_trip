@@ -8,22 +8,22 @@
       #navbarsExampleDefault.collapse.navbar-collapse
         ul.navbar-nav.ml-auto
           li.nav-item
-            a.nav-link(href="/") 전체 여행지
+            a.nav-link(href="/products/destinations") 전체 여행지
           li.nav-item
-            a.nav-link(href="/") 가이드 정보
+            a.nav-link(href="/guides") 가이드 정보
           li.nav-item
-            a.nav-link(href="/") whishlist  
+            a.nav-link(href=`/users/whishlist/${currentUser._id}`) whishlist  
           li.nav-item
-              a.nav-link(href='/') 예약 내역
+              a.nav-link(href=`/users/reservations/${currentUser._id}`) 예약 내역
           if (!currentUser) 
             li.nav-item
-              a.nav-link(href='/') Signin
+              a.nav-link(href='/signin') Signin
             li.nav-item
-              a.nav-link(href='/') Signup
+              a.nav-link(href='/users/new') Signup
           else
             li.nav-item
               a.nav-link(href=`/users/${currentUser._id}`) 마이 페이지
             li.nav-item
-              a.nav-link(href='/') Signout
-        //todo 프로필 화면 구축
+              a.nav-link(href='/signout') Signout
+        //-todo 프로필 화면 구축
           

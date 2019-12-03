@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Raleway");
+body {
+  font: 1rem 'Montserrat', sans-serif;
+  margin-top: 50px;
+  padding-top: 1em; }
+  body > .main-content {
+    min-height: 400px; }
+
+.search-input-group {
+  position: relative; }
+  .search-input-group input {
+    border-radius: 2em;
+   }
+  /* .search-input-group i {
+    font-size: 1.3em;
+    color: #bababa;
+    position: absolute; } */

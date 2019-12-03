@@ -1,0 +1,25 @@
+.content= whislist.product.content
+.price #{whislist.product.price} 원
+.tags.badges
+  each tag in whislist.product.tags
+    span.badge.badge-phill.badge-secondary= tag
+    | 
+.row
+  .col-md
+    .numbers.
+      #[span.number.num-votes= product.numLikes] likes,
+      #[span.number.num-comments= product.comment] comments,
+      #[span.number.num-views= product.numReads] reads
+  .col-sm
+    .button
+      a.btn.btn-outline-danger.delete-btn(href="#", data-url=`/user/whislist/${whislist.id}?_method=delete`) Delete
+
+  script.
+      $(function() {
+        $('.delete-btn').click(function() {
+          if (confirm('Are you sure to delete?')) {
+            location = $(this).data('url');
+          }
+          return false;
+        });
+      });

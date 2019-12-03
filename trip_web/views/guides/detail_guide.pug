@@ -1,0 +1,11 @@
+extends ../layout
+//- 모델 product
+block content
+  .container
+    h1.main-title= user.name
+
+    .guide.product    
+      h3 등록한 상품
+      each product in products
+        a(href=`/products/${product.id}`)= product.title
+      

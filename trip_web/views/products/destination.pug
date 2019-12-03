@@ -1,0 +1,19 @@
+extends ../layout
+//-여행지 모델 destinaton
+block content
+  .container
+    h1.main-title
+      | 여행지 리스트
+      if destinations.total > 0
+        p 총 #{destinations.total} 여행지
+
+    if destinations.total <= 0
+      .alert.alert-info 여행지가 없습니다.
+    else
+      .destinations
+        each destination in destinations.docs
+          .destinations
+            a.title(href=`products/destination/${destination.id}`)= destination.name
+          
+
+            

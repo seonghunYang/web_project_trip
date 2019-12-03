@@ -1,7 +1,26 @@
 extends layout
 
 block hero-unit
+  .jumbotron.bg-primary
+    .container.d-flex.flex-column.align-items-center
+      .row.py-2
+        .col-md-12
+          h4 여행지를 입력하세요
+      .row
+        .col-md-12
+          form.form-inline.search-input-group(action='/products', method='GET')
+            //- todo 아이콘 추가 i.fa.fa-search
+            input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
   
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .row
+      .col-md-12
+        h2 인기상품
+        
+    .row
+      .col-md-12
+        h2 핫딜
+    
+    
+

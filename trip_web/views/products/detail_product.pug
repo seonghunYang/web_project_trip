@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .container
+    h1.main-title= product.title
+
+    .product.detail
+    include _product
+    
+      .buttons
+        button.btn.btn-primary #[i.fa.fa-thumbs-up] Like 
+     //- todo whislist 연결(ajax로)
+     //- todo 예약하기   
+    .product.content.detail = product.detail_product
+    |
+    .product.course = product.course
+    |
+    //-todo 형식에 따라 수정하기
+    if product.numComments > 0
+      hr
+      p 총 #{product.numComments}개의 후기들
+      .comments.detail
+        each comment in comments
+          include _comment
+
+
+
+
+
+
+
+
+
+    
