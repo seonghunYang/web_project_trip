@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
-  name: { type: String, required: true} //아이디 지정
+  name: { type: String, required: true} //-아이디 지정
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

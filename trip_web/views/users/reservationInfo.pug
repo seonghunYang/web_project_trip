@@ -9,7 +9,7 @@ block content
       if reservations.total > 0
         .small 총 #{reservations.total} 여행상품이 있습니다.
 
-    if reservations.total <= 0 
+    if !reservations.total
       .alert.alert-info 예약내역이 없습니다.
     else
       .reservations

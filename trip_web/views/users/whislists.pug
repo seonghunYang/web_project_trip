@@ -9,7 +9,7 @@ block content
       if whislists.total > 0
         .small 총 #{whislists.total} 여행상품이 있습니다.
 
-    if whislists.total <= 0 
+    if !whislists.total  
       .alert.alert-info whislist가 없습니다.
     else
       .whislists
@@ -18,4 +18,4 @@ block content
             a.title(href=`/products/${whislist.product.id}`)= whislist.product.title
             include _whislist
       //todo 여행상품 리스트 맞게 수정
-      +paginate(products, `/users/whishlist/${currentUser._id}`, query)
+      +paginate(products, `/users/whislist/${currentUser._id}`, query)

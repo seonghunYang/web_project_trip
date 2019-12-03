@@ -12,4 +12,4 @@ var schema = new Schema({
 schema.plugin(mongoosePaginate);
 var Whislist = mongoose.model('Whislist', schema);
 
-module.exports = Whishlist;
+module.exports = Whislist;
