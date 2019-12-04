@@ -2,10 +2,15 @@ extends ../layout
 //- 모델 product
 block content
   .container
-    h1.main-title= user.name
+    h1.main-title 상세 정보
+      if guides.total > 0
+        .small 총 #{guides.total} 여행상품을 등록하셨습니다
 
-    .guide.product    
-      h3 등록한 상품
-      each product in products
-        a(href=`/products/${product.id}`)= product.title
-      
+    if !guides.total  
+      .alert.alert-info 등록한 여행상품이 없습니다
+    else
+      .guide.product    
+        h3 등록한 상품
+        each guide in guides
+          a(href=`/products/${guide.product.id}`)= guide.product.title
+        

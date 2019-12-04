@@ -17,12 +17,12 @@ var schema = new Schema({
   numReads: {type: Number, default: 0},
   numLikes: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
-  totalStartPoint: {type: number} //총합 별점
+  totalStartPoint: {type: Number} //총합 별점
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
 });
 schema.plugin(mongoosePaginate);
-var Question = mongoose.model('Question', schema);
+var Product = mongoose.model('Product', schema);
 
-module.exports = Question;
+module.exports = Product;

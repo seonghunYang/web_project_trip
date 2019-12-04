@@ -3,21 +3,27 @@ extends ../layout
 block content
   .container
     h1.main-title 가이드 정보
-     
-    each user in users
-      dl.row
-        dt.col-md-3 Name
-        dd.col-md-9= user.name 
-        dt.col-md-3 Email
-        dd.col-md-9
-          a(href=`mailto:${user.email}`)= user.email
+      if users.total > 0
+        .small 총 #{users.total}명의 가이드가 있습니다
 
-        dt.col-md-3 Created At
-        dd.col-md-9= user.createdAt
-          
-          .button        
-            a.btn.btn-sm.btn-outline-secondary(href=`/guides/${user._id}`) 
-                    | #[i.fa.fa-search] 상세보기
-                  
+    if !users.total  
+      .alert.alert-info 등록한 가이드가 없습니다
+    else
+      .guide
+        each user in users
+          dl.row
+            dt.col-md-3 Name
+            dd.col-md-9= user.name 
+            dt.col-md-3 Email
+            dd.col-md-9
+              a(href=`mailto:${user.email}`)= user.email
+
+            dt.col-md-3 Created At
+            dd.col-md-9= user.createdAt
+              
+              .button        
+                a.btn.btn-sm.btn-outline-secondary(href=`/guides/${user._id}`) 
+                        | #[i.fa.fa-search] 상세보기
+      +paginate(users, '/guides', query)            
 
       

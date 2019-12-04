@@ -114,13 +114,25 @@ router.post('/', catchErrors(async (req, res, next) => {
 }));
 
 router.get('/whislist/:id', needAuth, catchErrors(async(req, res, next) => {
-  const whislists = await Whislist.find({author: req.params.id});
-  res.render('users/whislists',{whislists: whislists});
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  var query = {author: req.params.id};
+  const whislists = await Whislist.paginate(query, {
+    sort: {createdAt: -1}, 
+    page: page, limit: limit
+  });
+  res.render('users/whislists',{whislists: whislists, query: req.query});
 }));
 
 router.get('/reservations/:id', needAuth, catchErrors(async(req, res, next) => {
-  const reservations = await Reservation.find({booker: req.params.id});
-  res.render('users/reservationInfo',{reservations: reservations});
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  var query = {booker: req.params.id};
+  const reservations = await Reservation.paginate(query, {
+    sort: {createdAt: -1}, 
+    page: page, limit: limit
+  });
+  res.render('users/reservationInfo',{reservations: reservations, query: req.query});
 }));
 
 router.delete('/whislist/:id', needAuth, catchErrors(async (req, res, next) => {

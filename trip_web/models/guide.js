@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 //- todo 가이드가 등록하면
 var schema = new Schema({
-  guide: { type: Schema.Types.ObjectId, ref: 'User'},
+  user_id: { type: Schema.Types.ObjectId, ref: 'User'},
   product: { type: Schema.Types.ObjectId, ref: 'Product'},
   img: {type: String}
 }, {

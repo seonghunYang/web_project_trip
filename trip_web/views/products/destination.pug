@@ -7,13 +7,14 @@ block content
       if destinations.total > 0
         p 총 #{destinations.total} 여행지
 
-    if destinations.total <= 0
+    if !destinations.total 
       .alert.alert-info 여행지가 없습니다.
     else
       .destinations
+        a.title(herf='/products') 모두 보기
         each destination in destinations.docs
           .destinations
-            a.title(href=`products/destination/${destination.id}`)= destination.name
+            a.title(href=`/products/destination/${destination.id}`)= destination.name
           
 
             
