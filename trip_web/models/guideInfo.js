@@ -3,13 +3,16 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 //- todo 가이드가 등록하면
 var schema = new Schema({
-  user_id: { type: Schema.Types.ObjectId, ref: 'User'},
-  product: { type: Schema.Types.ObjectId, ref: 'Product'}
+  guide_id: { type: Schema.Types.ObjectId, ref: 'User'},
+  img: {type: String},
+  introduce: {type: String},
+  phone: {type: String},
+  residence: {type: String}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
 });
 schema.plugin(mongoosePaginate);
-var Guide = mongoose.model('Guide', schema);
+var GuideInfo = mongoose.model('GuideInfo', schema);
 
-module.exports = Guide;
+module.exports = GuideInfo;

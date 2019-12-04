@@ -9,7 +9,7 @@ var schema = new Schema({
   content: {type: String, trim: true, required: true},
   starpoint: {type: Number, default: 1},
   createdAt: {type: Date, default: Date.now},
-  // img: {} todo 이미지 어캐??
+  img: {type: String}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

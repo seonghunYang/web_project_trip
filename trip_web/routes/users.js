@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Whislist = require('../models/whislist');
 const Reservation = require('../models/reservation');
 const catchErrors = require('../lib/async-error');
+const Guide = require('../models/guide');
 /* GET users listing. */
 
 function needAuth(req, res, next) {
@@ -140,6 +141,7 @@ router.delete('/whislist/:id', needAuth, catchErrors(async (req, res, next) => {
   req.flash('success', 'Successfully deleted');
   res.redirect('back');
 }));
+
 
 
 module.exports = router;

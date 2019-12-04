@@ -16,8 +16,8 @@ var passportSocketIo = require('passport.socketio');
 var index = require('./routes/index');
 var products = require('./routes/products');
 var users = require('./routes/users');
-var guides = require('./routes/guides');
-
+var guideInfo = require('./routes/guideInfo');
+var guide = require('./routes/guide');
 var passportConfig = require('./lib/passport-config'); //passport 로그인
 var app = express();
 
@@ -94,8 +94,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/products',products);
 require('./routes/auth')(app, passport);
-app.use('/guides',guides);
-
+app.use('/guideInfo',guideInfo);
+app.use('/guide',guide);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

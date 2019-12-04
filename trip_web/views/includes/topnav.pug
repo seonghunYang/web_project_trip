@@ -10,12 +10,17 @@
           li.nav-item
             a.nav-link(href="/products/destinations") 전체 여행지
           li.nav-item
-            a.nav-link(href="/guides") 가이드 정보
+            a.nav-link(href="/guideInfo") 가이드 정보
           if (!currentUser) 
             li.nav-item
               a.nav-link(href='/signin') Signin
             li.nav-item
               a.nav-link(href='/users/new') Signup
+          else if (currentUser.guide)
+            li.nav-item
+              a.nav-link(href=`/guide/${currentUser._id}`) 가이드 페이지
+            li.nav-item
+              a.nav-link(href='/signout') Signout            
           else
             li.nav-item
               a.nav-link(href=`/users/whislist/${currentUser._id}`) whislist  
@@ -23,6 +28,8 @@
               a.nav-link(href=`/users/reservations/${currentUser._id}`) 예약 내역          
             li.nav-item
               a.nav-link(href=`/users/${currentUser._id}`) 마이 페이지
+            li.nav-item
+              a.nav-link(href='/guide/new') 가이드로 등록하기
             li.nav-item
               a.nav-link(href='/signout') Signout
         //-todo 프로필 화면 구축

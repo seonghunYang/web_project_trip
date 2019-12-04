@@ -10,7 +10,7 @@ block content
       .alert.alert-info 등록한 가이드가 없습니다
     else
       .guide
-        each user in users
+        each user in users.docs
           dl.row
             dt.col-md-3 Name
             dd.col-md-9= user.name 

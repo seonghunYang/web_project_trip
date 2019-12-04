@@ -13,11 +13,11 @@ router.get('/', catchErrors(async (req, res, next) => {
     sort: {createdAt: -1}, 
     page: page, limit: limit
   });
-  res.render('guides/index',{users: users, query: req.query});
+  res.render('guideInfo/index',{users: users, query: req.query});
 }));
 router.get('/:id', catchErrors(async (req, res, next) => {
   const guides = await Guide.find({user_id: req.params.id});
-  res.render('guides/detail_guide',{guides: guides});
+  res.render('guideInfo/detail_guide',{guides: guides});
 }));
 
 module.exports = router;
