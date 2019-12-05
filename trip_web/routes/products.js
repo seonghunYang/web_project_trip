@@ -6,6 +6,7 @@ const Comment = require('../models/comment');
 const catchErrors = require('../lib/async-error');
 /* GET home page. */
 //search 전체 여행지 통로
+
 router.get('/', catchErrors(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -13,12 +14,12 @@ router.get('/', catchErrors(async (req, res, next) => {
   var query = {};
   const term = req.query.term;
   if (term) {
-    const destination = await Destination.findone({name: term});
+    const destination = await Destination.find({name: term});
     if (destination){
       query = {$or: [
         {title: {'$regex': term, '$options': 'i'}},
         {content: {'$regex': term, '$options': 'i'}},
-        {destination: {'$regex': destination.id, 'options': 'i'}}
+        {destination: destination.id}
     ]};}
     else{
       query = {$or: [
