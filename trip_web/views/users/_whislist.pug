@@ -12,14 +12,4 @@
       #[span.number.num-views= product.numReads] reads
   .col-sm
     .button
-      a.btn.btn-outline-danger.delete-btn(href="#", data-url=`/user/whislist/${whislist.id}?_method=delete`) Delete
-
-  script.
-      $(function() {
-        $('.delete-btn').click(function() {
-          if (confirm('Are you sure to delete?')) {
-            location = $(this).data('url');
-          }
-          return false;
-        });
-      });
+      a.btn.btn-outline-danger.need-confirm-btn(href="#", data-url=`/user/whislist/${whislist.id}?_method=delete`) Delete

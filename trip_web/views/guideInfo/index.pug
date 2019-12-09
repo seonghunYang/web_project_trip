@@ -1,5 +1,6 @@
 extends ../layout
 
+include ../includes/_paginate
 block content
   .container
     h1.main-title 가이드 정보
@@ -21,9 +22,9 @@ block content
             dt.col-md-3 Created At
             dd.col-md-9= user.createdAt
               
-              .button        
-                a.btn.btn-sm.btn-outline-secondary(href=`/guides/${user._id}`) 
-                        | #[i.fa.fa-search] 상세보기
-      +paginate(users, '/guides', query)            
+            .button        
+              a.btn.btn-sm.btn-outline-secondary(href=`/guideInfo/${user._id}`) 
+                | #[i.fa.fa-search] 상세보기
+      +paginate(users, '/guideInfo', query)            
 
       

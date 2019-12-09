@@ -3,7 +3,7 @@ extends ../layout
 block content
   .container
     h1.main-title 새 여행상품 등록
-    form(action="/questions", method="POST", enctype="multipart/form-data")
+    form(action="/guide/register", method="POST", enctype="multipart/form-data")
       .form-group
         label(for="title") 제목
         input.form-control(type="text", name="title", placeholder="제목")
@@ -15,17 +15,18 @@ block content
         input.form-control(type="text", name="content", placeholder="간단 내용")
       .form-group
         label(for="destination") 여행지
-        input.form-control(type="text", name="destination", placeholder="여행지")
+        input.form-control(type="text", name="destination", placeholder="나라>도시")
         //- textarea.form-control(name="content", rows="5")= question.content
       .form-group
         label(for="price") 가격
         input.form-control(type="number", name="price", placeholder="가격")
       .form-group
         label(for="course") 코스
-        input.form-control(type="course", name="course", placeholder="코스") <!--todo 코스구현-->
+        input.form-control(type="course", name="course", placeholder="코스") 
+        //-todo course 구현
       .form-group
         label(for="detail_content") 상세 설명
-        textarea.form-control(id="summernote", name="editordata")
+        textarea.form-control(id="summernote", name="detail_content")
 
       button.btn.btn-outline-primary(type="submit") 상품을 등록하세요!
 

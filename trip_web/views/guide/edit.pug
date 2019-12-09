@@ -7,25 +7,33 @@ block content
     form(action=`/guide/${product.id}?_method=PUT`, method="POST")
       .form-group
         label(for="title") 제목
-        input.form-control(type="text", name="title", placeholder="제목")= product.title
+        input.form-control(type="text", name="title", placeholder="제목", value=product.title)
+        p= product.title
       .form-group
         label(for='img') 메인 사진
         input.form-control(type="file", name="img")
       .form-group
         label(for="content") 간단 내용
-        input.form-control(type="text", name="content", placeholder="간단 내용")= product.content
+        input.form-control(type="text", name="content", placeholder="간단 내용", value=product.content)
       .form-group
         label(for="destination") 여행지
-        input.form-control(type="text", name="destination", placeholder="여행지")= product.destination.name
-        //- textarea.form-control(name="content", rows="5")= question.content
+        input.form-control(type="text", name="destination", placeholder="여행지")
+        //- todo 여행지 만들고 값지정
       .form-group
         label(for="price") 가격
-        input.form-control(type="number", name="price", placeholder="가격")= product.price
+        input.form-control(type="number", name="price", placeholder="가격", value=product.price)
       .form-group
         label(for="course") 코스
-        input.form-control(type="course", name="course", placeholder="코스") <!--todo 코스구현-->
+        input.form-control(type="course", name="course", placeholder="코스", value=product.course) 
       .form-group
         label(for="detail_content") 상세 설명
         textarea.form-control(id="summernote", name="editordata")= product.detail_content      
 
       button.btn.btn-outline-primary(type="submit") 수정 완료
+
+  script.
+      $('#summernote').summernote({
+        placeholder: '상세 설명',
+        tabsize: 3,
+        height: 200
+      });

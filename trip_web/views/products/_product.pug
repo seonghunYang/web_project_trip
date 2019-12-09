@@ -1,12 +1,9 @@
 .content= product.content
 .price #{product.price} 원
-.tags.badges
-  each tag in product.tags
-    span.badge.badge-phill.badge-secondary= tag
-    | 
+
 .row
   .col-md
     .numbers.
-      #[span.number.num-votes= product.numLikes] likes,
+      #[span.number.num-likes= product.numLikes] likes,
       #[span.number.num-comments= product.comment] comments,
       #[span.number.num-views= product.numReads] reads

@@ -11,7 +11,18 @@ body {
   .search-input-group input {
     border-radius: 2em;
    }
-  /* .search-input-group i {
-    font-size: 1.3em;
-    color: #bababa;
-    position: absolute; } */
+
+.product-whislist-btn {
+  cursor: pointer; }
+  .product-whislist-btn .for-loading {
+    display: none; }
+  .product-whislist-btn.loading {
+    filter: opacity(30%);
+    cursor: wait; }
+    .product-whislist-btn.loading > span {
+      display: none; }
+    .product-whislist-btn.loading .for-loading {
+      display: inline-block; }
+  .product-whislist-btn.disabled {
+    color: #bbb;
+    cursor: default; }    

@@ -8,9 +8,12 @@ block content
     include _product
     
       .buttons
-        button.btn.btn-primary #[i.fa.fa-thumbs-up] Like 
-     //- todo whislist 연결(ajax로)
-     //- todo 예약하기   
+        button.btn.btn-primary.product-whislist-btn(data-id=product.id)
+          span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+          span #[i.fa.fa-thumbs-up] Like
+        //- todo whislist 연결(ajax로)
+        a.btn.btn-sm.btn-outline-secondary(href=`/products/reservation/${product.id}`) 
+          | #[i.fa.fa-pencil] 예약하기
     .product.content.detail= product.detail_content
     |
     .product.course= product.course
@@ -23,7 +26,7 @@ block content
         each comment in comments
           include _comment
 
-
+  script(src='/javascripts/whislist.js')
 
 
 

@@ -1,4 +1,6 @@
 extends ../layout
+
+include ../includes/_paginate
 //- 모델 product
 block content
   .container
@@ -11,6 +13,10 @@ block content
     else
       .guide.product    
         h3 등록한 상품
-        each guide in guides
-          a(href=`/products/${guide.product.id}`)= guide.product.title
-        
+        each guide in guides.docs
+          .guide
+            a(href=`/products/${guide.product.id}`)= guide.product.title
+      
+
+      +paginate(guides, `/guideInfo/${user._id}`, query)
+

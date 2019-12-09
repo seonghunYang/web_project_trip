@@ -22,7 +22,6 @@ block content
             | 
             a.btn.btn-outline-danger.need-confirm-btn(href=`/guide/${product.id}?_method=delete`) 삭제
       //-todo 여행상품 리스트 맞게 수정
-      //-todo 삭제 방지 알고리즘
       +paginate(products, '/guide', query)
       
     hr

@@ -5,7 +5,9 @@ const Whislist = require('../models/whislist');
 const Reservation = require('../models/reservation');
 const catchErrors = require('../lib/async-error');
 const Guide = require('../models/guide');
+const Product = require('../models/product');
 /* GET users listing. */
+
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -125,6 +127,17 @@ router.get('/whislist/:id', needAuth, catchErrors(async(req, res, next) => {
   res.render('users/whislists',{whislists: whislists, query: req.query});
 }));
 
+router.get('/reservations/detail/:id', needAuth, catchErrors(async(req, res, next) =>{
+  const reservation = await Reservation.findById(req.params.id).populate('booker').populate('product');
+  res.render('users/detail_reservationInfo', {reservation: reservation});
+}));
+
+router.get('/reservations/:id/edit', needAuth, catchErrors(async(req, res, next) => {
+  const reservation = await Reservation.findById(req.params.id).populate('product');
+  const product = reservation.product;
+  res.render('products/reservation_edit',{reservation: reservation, product: product});
+}));
+
 router.get('/reservations/:id', needAuth, catchErrors(async(req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -142,6 +155,18 @@ router.delete('/whislist/:id', needAuth, catchErrors(async (req, res, next) => {
   res.redirect('back');
 }));
 
+router.delete('/reservations/:id', needAuth, catchErrors(async (req, res, next) => {
+  const reservation = await Reservation.findById(req.params.id);
+  const product = await Product.findById(reservation.product);
+  await Reservation.findByIdAndRemove(req.params.id);
+  req.flash('success', 'Successfully deleted');
+  if(req.user.guide){
+    res.redirect(`/guide/${product.id}/userlist`);
+  }else{
+    res.redirect(`/users/reservations/${req.user._id}`);
+  };
+  
+}));
 
 
 module.exports = router;

@@ -1,3 +1,6 @@
+extends ../layout
+
+
 include ../includes/_paginate
 //-모델이름 reservation(예약내역) 이랑 연결해서 사용
 block content
@@ -11,7 +14,7 @@ block content
       .alert.alert-info 예약내역이 없습니다.
     else
       .reservations
-        each reservation in reservation.docs
+        each reservation in reservations.docs
           .reservations
             a.title(href=``) 
             //-todo 예약 상세페이지로 연결 수정과 삭제도 예약 상세페이지로 연결
@@ -22,11 +25,14 @@ block content
               dd.col-sm-9= reservation.price
               dt.col-sm-3 예약일자
               dd.col-sm-9= reservation.bookDate
-            a.btn.btn-sm.btn-outline-secondary(href=`/users/${user._id}/edit`) 
+            a.btn.btn-sm.btn-outline-secondary(href=`/users/reservations/detail/${reservation.id}`) 
+              | #[i.fa.fa-search] 상세보기
+            |
+            a.btn.btn-sm.btn-outline-secondary(href=`/user/reservations/${reservation.id}/edit`) 
               | #[i.fa.fa-pencil] 수정
             | 
-            a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`)
+            a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/reservations/${reservation.id}?_method=DELETE`)
               | #[i.fa.fa-trash] 삭제
             
       //-todo 여행상품 리스트 맞게 수정 상세페이지로 넘기는 라우터
-      +paginate(reservations, `/guide/${reservation.product.id}/userlist`, query)
+      +paginate(reservations, `/guide/${product.id}/userlist`, query)

@@ -3,7 +3,7 @@ extends ../layout
 block content
   .container
     h1.main-title 트립고의 가이드가 되어주세요!
-    form(action='/guide', method='POST', ecctype="multipart/form-data")
+    form(action='/guide', method='POST', enctype="multipart/form-data")
       .form-group
         label(for='introduce') 소개
         textarea.form-control(name="introduce", rows="5")
@@ -12,8 +12,9 @@ block content
         input.form-control(type='text', id='phone', name='phone', placeholder='010-xxxx-xxxx')
       .form-group
         label(for='residence') 거주지
-        input.form-control(type='text', id='residence', name='residence', placeholder='거주지')
+        input.form-control(type='text', id='residence', name='residence', placeholder='거주지역 ex)프랑스>파인')
       .form-group
         label(for='img') 가이드 사진
         input.form-control(type="file", name="img")
+      
       button.btn.btn-primary(type='submit') 가이드 등록하기
