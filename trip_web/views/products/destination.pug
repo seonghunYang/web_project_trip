@@ -7,13 +7,16 @@ block content
       if destinations.total > 0
         p 총 #{destinations.total} 여행지
     a(href='/products') 모두 보기
-    if !destinations.total 
-      .alert.alert-info 여행지가 없습니다.
-    else
+    hr
+    each destination in destinations
       .destinations
-        each destination in destinations
-          .destinations
-            a.title(href=`/products/destinations/${destination.id}`)= destination.name
-          
-
+        dl.row
+          dt.col-md-3
+            a(href=`/products/destinations/${destination.id}`)= destination.name
+          dd.col-md-9= destination.content 
+          hr         
+    hr
+    if(currentUser)
+      if(currentUser.admin)
+        a.btn.btn-outline-primary(href='/admin/destination/new') 여행지 추가
             

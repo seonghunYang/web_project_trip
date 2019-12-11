@@ -13,14 +13,14 @@ block content
     else
       .products
         each product in products.docs
-          .products
-            a.title(href=`/products/${product.id}`)= product.title
+          .products.d-flex
             include ../products/_product
-            a.btn.btn-primary(href= `/guide/${product.id}/userlist`) 예약한 사람 보기
-            |
-            a.btn.btn-outline-secondary(href=`/guide/${product.id}/edit`) 수정
-            | 
-            a.btn.btn-outline-danger.need-confirm-btn(href=`/guide/${product.id}?_method=delete`) 삭제
+              dd.col-md-12
+                a.btn.btn-primary(href= `/guide/${product.id}/userlist`) 예약한 사람 보기
+                |
+                a.btn.btn-outline-secondary(href=`/guide/${product.id}/edit`) 수정
+                | 
+                a.btn.btn-outline-danger.need-confirm-btn(href=`/guide/${product.id}?_method=delete`) 삭제
       //-todo 여행상품 리스트 맞게 수정
       +paginate(products, '/guide', query)
       

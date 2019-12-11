@@ -122,7 +122,8 @@ router.get('/whislist/:id', needAuth, catchErrors(async(req, res, next) => {
   var query = {author: req.params.id};
   const whislists = await Whislist.paginate(query, {
     sort: {createdAt: -1}, 
-    page: page, limit: limit
+    page: page, limit: limit,
+    populate: 'product'
   });
   res.render('users/whislists',{whislists: whislists, query: req.query});
 }));
@@ -150,7 +151,7 @@ router.get('/reservations/:id', needAuth, catchErrors(async(req, res, next) => {
 }));
 
 router.delete('/whislist/:id', needAuth, catchErrors(async (req, res, next) => {
-  await Whislist.findOneAndRemove({id: req.params.id});
+  await Whislist.findByIdAndRemove(req.params.id);
   req.flash('success', 'Successfully deleted');
   res.redirect('back');
 }));

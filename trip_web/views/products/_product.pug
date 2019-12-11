@@ -1,9 +1,21 @@
-.content= product.content
-.price #{product.price} 원
 
-.row
-  .col-md
+img.col-md-3.img-fluid(src= product.img)
+dl.col-md-9
+  dt.col-md-3 제목
+  dd.col-md-9
+   a.title(href=`/products/${product.id}`)= product.title
+  dt.col-md-3 내용
+  dd.col-md-9= product.content
+  dt.col-md-3 여행지
+  dd.col-md-9= product.destination.name
+  dt.col-md-3 가격
+  dd.col-md-9= product.price
+  dd.col-md-12
     .numbers.
       #[span.number.num-likes= product.numLikes] likes,
-      #[span.number.num-comments= product.comment] comments,
+      #[span.number.num-comments= product.numComments] comments,
       #[span.number.num-views= product.numReads] reads
+
+
+
+

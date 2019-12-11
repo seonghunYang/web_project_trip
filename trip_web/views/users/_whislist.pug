@@ -1,15 +1,13 @@
 .content= whislist.product.content
 .price #{whislist.product.price} 원
-.tags.badges
-  each tag in whislist.product.tags
-    span.badge.badge-phill.badge-secondary= tag
+
     | 
 .row
   .col-md
     .numbers.
-      #[span.number.num-votes= product.numLikes] likes,
-      #[span.number.num-comments= product.comment] comments,
-      #[span.number.num-views= product.numReads] reads
+      #[span.number.num-likes= whislist.product.numLikes] likes,
+      #[span.number.num-comments= whislist.product.numComments] comments,
+      #[span.number.num-views= whislist.product.numReads] reads
   .col-sm
     .button
-      a.btn.btn-outline-danger.need-confirm-btn(href="#", data-url=`/user/whislist/${whislist.id}?_method=delete`) Delete
+      a.btn.btn-outline-danger.need-confirm-btn(href=`/users/whislist/${whislist.id}?_method=delete` ) Delete

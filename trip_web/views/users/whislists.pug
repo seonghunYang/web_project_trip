@@ -18,4 +18,4 @@ block content
             a.title(href=`/products/${whislist.product.id}`)= whislist.product.title
             include _whislist
       //todo 여행상품 리스트 맞게 수정
-      +paginate(products, `/users/whislist/${currentUser._id}`, query)
+      +paginate(whislists, `/users/whislist/${currentUser._id}`, query)

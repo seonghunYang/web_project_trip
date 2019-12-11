@@ -21,6 +21,8 @@ var guide = require('./routes/guide');
 var passportConfig = require('./lib/passport-config'); //passport 로그인
 var app = express();
 var ajax = require('./routes/ajax');
+var admin = require('./routes/admin');
+
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');
@@ -97,6 +99,7 @@ require('./routes/auth')(app, passport);
 app.use('/guideInfo',guideInfo);
 app.use('/guide',guide);
 app.use('/ajax', ajax);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

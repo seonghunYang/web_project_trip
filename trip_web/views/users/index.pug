@@ -20,4 +20,4 @@ block content
     p
       a.btn.btn-outline-primary(href=`/users/${user._id}/edit`) 정보 수정
       | 
-      a.btn.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`) 회원 탈퇴
+      a.btn.btn-outline-danger.need-confirm-btn(href=`/users/${user._id}?_method=DELETE`) 회원 탈퇴

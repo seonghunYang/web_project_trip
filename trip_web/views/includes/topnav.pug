@@ -20,7 +20,20 @@
             li.nav-item
               a.nav-link(href=`/guide/${currentUser._id}`) 가이드 페이지
             li.nav-item
-              a.nav-link(href='/signout') Signout            
+              a.nav-link(href=`/users/${currentUser._id}`) 마이 페이지
+            li.nav-item
+              a.nav-link(href='/signout') Signout  
+          else if (currentUser.admin) 
+            li.nav-item
+              a.nav-link(href="/products/destinations") 여행지 추가        
+            li.nav-item
+              a.nav-link(href=``) 사용자 관리
+            li.nav-item
+              a.nav-link(href=``) 예약 관리
+            li.nav-item
+              a.nav-link(href=`/admin`) 관리자 추가
+            li.nav-item
+              a.nav-link(href='/signout') Signout  
           else
             li.nav-item
               a.nav-link(href=`/users/whislist/${currentUser._id}`) whislist  

@@ -57,7 +57,7 @@ router.get('/destinations/:id', catchErrors(async (req, res, next) => {
     populate: 'destination', 
     page: page, limit: limit
   });
-  res.render('products/index', {products: products, term: term, query: req.query});
+  res.render('products/index', {products: products, query: req.query});
 }));
 
 router.get('/destinations', catchErrors(async (req, res, next) => {
@@ -68,6 +68,9 @@ router.get('/destinations', catchErrors(async (req, res, next) => {
 router.get('/:id', catchErrors(async(req, res, next) => {
   const product = await Product.findById(req.params.id);
   const comments = await Comment.find({product: req.params.id}).populate('author');;
+  product.numReads++;
+
+  await product.save();
   res.render('products/detail_product',{product: product, comments: comments});
 }));
 
@@ -86,8 +89,15 @@ router.put('/:id', needAuth, catchErrors(async(req, res, next) => {
   reservation.personnel = req.body.personnel;
 
   await reservation.save();
+
+  if(req.user.guide){
   req.flash('success', '수정 완료했습니다.');
-  res.redirect(`/users/reservations/${req.user._id}`);
+  res.redirect(`/guide/${reservation.product}/userlist`);
+  }
+  else if(req.user.admin){
+  req.flash('success', '수정 완료했습니다.');
+  res.redirect(``)
+  }
 }));
 
 router.post('/:id', needAuth, catchErrors(async(req, res, next) => {

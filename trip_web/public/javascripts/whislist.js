@@ -8,7 +8,7 @@ $(function(){
       method: 'POST',
       dataType: 'json',
       success: function(data){
-        $('.products .num-likes').text(data.numLikes);
+        $('.product .num-likes').text(data.numLikes);
         $('.product-whislist-btn').hide();
       },
       error: function(data, status) {

@@ -76,7 +76,8 @@ router.get('/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
   var query = {author: req.params.id};
   const products = await Product.paginate(query, {
     sort: {createdAt: -1}, 
-    page: page, limit: limit
+    page: page, limit: limit,
+    populate: 'destination'
   });
   res.render('guide/index',{products: products});
 }));
@@ -135,7 +136,7 @@ router.post('/', needAuth,
 router.post('/register', needAuth, isGuide,
       upload.single('img'),
       catchErrors(async (req, res, next) => {
-    const destination = await Destination.find({name: req.body.destination});
+    const destination = await Destination.findOne({name: req.body.destination});
     if(!destination){
       req.flash('danger','여행지를 다시 입력해주세요' );
       res.redirect('back');

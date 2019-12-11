@@ -32,7 +32,8 @@ block content
 
     hr
     p
-      a.btn.btn-outline-primary(href=`/users/reservations/${reservation.id}/edit`) 정보 수정 
-      | 
+      if(currentUser.admin || currentUser.guide)
+        a.btn.btn-outline-primary(href=`/users/reservations/${reservation.id}/edit`) 정보 수정 
+        | 
       a.btn.btn-outline-danger.need-confirm-btn(href=`/users/reservations/${reservation.id}?_method=DELETE`) 예약 삭제     
 

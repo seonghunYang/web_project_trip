@@ -6,7 +6,7 @@ include ../includes/_paginate
 block content
   .container
     h1.main-title 
-      | 예약내역
+      | 예약관리
       if reservations.total > 0
         .small 총 #{reservations.total}개의 예약내역이 있습니다.
 
@@ -16,7 +16,6 @@ block content
       .reservations
         each reservation in reservations.docs
           .reservations
-            //-todo 예약 상세페이지로 연결 수정과 삭제도 예약 상세페이지로 연결
             dl.row
               dt.col-md-3 인원
               dd.col-md-9= reservation.personnel 
