@@ -23,10 +23,10 @@ block content
             dd.col-md-9= user.createdAt
               
             .button        
-              a.btn.btn-sm.btn-outline-secondary(href=``) 
+              a.btn.btn-sm.btn-outline-secondary(href=`/admin/${user._id}/edit`) 
                 | #[i.fa.fa-pencil] 수정
-              a.btn.btn-sm.btn-outline-secondary(href=``) 
+              a.btn.btn-sm.btn-outline-secondary.need-confirm-btn(href=`/admin/${user._id}?_method=DELETE`) 
                 | #[i.fa.fa-trash] 삭제
-      +paginate(users, '', query)            
+      +paginate(users, '/admin/users', query)            
 
       

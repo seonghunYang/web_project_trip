@@ -5,18 +5,18 @@ include ../includes/_paginate
 block content
   .container
     h1.main-title 상세 정보
-      if guides.total > 0
-        .small 총 #{guides.total} 여행상품을 등록하셨습니다
+      if products.total > 0
+        .small 총 #{products.total} 여행상품을 등록하셨습니다
 
-    if !guides.total  
+    if !products.total  
       .alert.alert-info 등록한 여행상품이 없습니다
     else
       .guide.product    
         h3 등록한 상품
-        each guide in guides.docs
-          .guide
-            a(href=`/products/${guide.product.id}`)= guide.product.title
+        each product in products.docs
+          .products.d-flex
+            include ../products/_product
       
 
-      +paginate(guides, `/guideInfo/${user._id}`, query)
+      +paginate(products, `/guideInfo/${user._id}`, query)
 

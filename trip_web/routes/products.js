@@ -5,8 +5,25 @@ const Destination = require('../models/destination');
 const Comment = require('../models/comment');
 const catchErrors = require('../lib/async-error');
 const Reservation = require('../models/reservation');
-/* GET home page. */
-//search 전체 여행지 통로
+const multer = require('multer');
+const fs = require('fs-extra');
+const path = require('path');
+
+const mimetypes = {
+  "image/jpeg": "jpg",
+  "image/gif": "gif",
+  "image/png": "png"
+};
+const upload = multer({
+  dest: 'tmp', 
+  fileFilter: (req, file, cb) => {
+    var ext = mimetypes[file.mimetype];
+    if (!ext) {
+      return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+  }
+});
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -24,7 +41,7 @@ router.get('/', catchErrors(async (req, res, next) => {
   var query = {};
   const term = req.query.term;
   if (term) {
-    const destination = await Destination.find({name: term});
+    const destination = await Destination.findOne({name: term});
     if (destination){
       query = {$or: [
         {title: {'$regex': term, '$options': 'i'}},
@@ -65,13 +82,18 @@ router.get('/destinations', catchErrors(async (req, res, next) => {
   res.render('products/destination', {destinations: destinations});
 }));
 
+
 router.get('/:id', catchErrors(async(req, res, next) => {
   const product = await Product.findById(req.params.id);
   const comments = await Comment.find({product: req.params.id}).populate('author');;
   product.numReads++;
 
+  if (req.isAuthenticated()){
+    const reservation = Reservation.findOne({booker: req.user._id});
+  }
+  
   await product.save();
-  res.render('products/detail_product',{product: product, comments: comments});
+  res.render('products/detail_product',{product: product, comments: comments, reservation: reservation});
 }));
 
 router.get('/reservation/:id', needAuth, catchErrors(async(req, res, next) => {
@@ -96,8 +118,35 @@ router.put('/:id', needAuth, catchErrors(async(req, res, next) => {
   }
   else if(req.user.admin){
   req.flash('success', '수정 완료했습니다.');
-  res.redirect(``)
+  res.redirect(`/admin/${reservation.product}/reservations`);
   }
+}));
+
+router.post('/comment/:id', needAuth,
+      upload.single('img'),
+      catchErrors(async (req, res, next) => {
+
+    var comment = new Comment({
+      author: req.user._id,
+      product: req.params.id,
+      title: req.body.title,
+      content: req.body.content
+    });
+    if (req.file) {
+      const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
+      console.log("File ->", req.file); // multer의 output이 어떤 형태인지 보자.
+      const filename = comment.id + "/" + req.file.originalname;
+      await fs.move(req.file.path, dest + filename);
+      comment.img = "/images/uploads/" + filename;
+    }
+    await comment.save();
+
+    const product = await Product.findById(req.params.id);
+    product.numComments++;
+
+    await product.save();
+    req.flash('success', '등록에 성공하셨습니다');
+    res.redirect('back');
 }));
 
 router.post('/:id', needAuth, catchErrors(async(req, res, next) => {

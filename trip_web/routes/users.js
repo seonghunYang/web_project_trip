@@ -84,8 +84,14 @@ router.put('/:id', needAuth, catchErrors(async (req, res, next) => {
     user.password = await user.generateHash(req.body.password);
   }
   await user.save();
+  if (req.user.admin){
+  req.flash('success', 'Updated successfully.');
+  res.redirect('/admin/users');
+  }
+  else{
   req.flash('success', 'Updated successfully.');
   res.redirect(`/users/${user._id}`);
+  }
 }));
 
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
@@ -163,9 +169,13 @@ router.delete('/reservations/:id', needAuth, catchErrors(async (req, res, next) 
   req.flash('success', 'Successfully deleted');
   if(req.user.guide){
     res.redirect(`/guide/${product.id}/userlist`);
-  }else{
+  }
+  else if(req.user.admin){
+    res.redirect(`/admin/${product.id}/reservations`);
+  }
+  else{
     res.redirect(`/users/reservations/${req.user._id}`);
-  };
+  }
   
 }));
 

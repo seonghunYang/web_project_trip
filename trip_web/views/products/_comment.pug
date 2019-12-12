@@ -1,7 +1,9 @@
 .comment.card
-  //- todo 후기 적는 곳
-  .card-body
-    .content= comment.content
+  .card-body.d-flex
+    img.col-md-2.img-fluid(src= product.img)
+    .comment.card.col-md-10
+      .title= comment.title
+      .content= comment.content
   .row.card-body
     .col-md
     .col-md.text-right

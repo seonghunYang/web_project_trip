@@ -19,6 +19,21 @@ block content
     .product.course= product.course
     |
     //-todo 형식에 따라 수정하기
+    if currentUser
+      if reservation
+        form(action=`/products/comment/${product.id}`, method='POST')
+          .form-group
+            label(for="title") 제목
+            input.form-control(type="text", name="title", placeholder="제목")
+          .form-group
+            label(for='content') Your Answer
+            textarea.form-control(name="content", rows="5")
+          .form-group
+            label(for='img') 여행사진
+            input.form-control(type="file", name="img")
+          
+          button.btn.btn-primary(type="submit") 후기등록
+    
     if product.numComments > 0
       hr
       p 총 #{product.numComments}개의 후기들

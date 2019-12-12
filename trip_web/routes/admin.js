@@ -3,6 +3,8 @@ var router = express.Router();
 const catchErrors = require('../lib/async-error');
 const User = require('../models/user');
 const Destination = require('../models/destination');
+const Product = require('../models/product');
+const Reservation = require('../models/reservation');
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -52,10 +54,39 @@ router.get('/new', needAuth, catchErrors(async (req, res, next) => {
   res.render('admin/admin_add');
 }));
 
+router.get('/users', needAuth, catchErrors(async (req, res, next) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  var query = {};
+  const users = await User.paginate(query, {
+    sort: {createdAt: -1}, 
+    page: page, limit: limit
+  });
+
+  res.render('admin/admin_user', {users: users});
+}));
+
 router.get('/destination/new', needAuth, catchErrors(async (req, res, next) => {
   res.render('admin/admin_destination');
 }));
 
+router.get('/:id/reservations', needAuth, catchErrors(async(req, res, next) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  var query = {product: req.params.id};
+  const reservations = await Reservation.paginate(query, {
+    sort: {createdAt: -1}, 
+    page: page, limit: limit,
+    populate: 'product'
+  });
+  const product = await Product.findById(req.params.id);
+  res.render('admin/admin_reservation', {reservations: reservations, product: product});
+}));
+
+router.get('/:id/edit', needAuth, catchErrors(async(req, res, next) => {
+  const user = await User.findById(req.params.id);
+  res.render('users/edit',{user: user});
+}));
 
 router.post('/', catchErrors(async (req, res, next) => {
   var err = validateForm(req.body, {needPassword: true});
@@ -87,8 +118,14 @@ router.post('/destination', catchErrors(async (req, res, next) => {
   });
 
   await destination.save();
-  
   res.redirect("/products/destinations");
 }));
+
+router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
+  const user = await User.findOneAndRemove({_id: req.params.id});
+  req.flash('success', 'Deleted Successfully.');
+  res.redirect('back');
+}));  
+
 
 module.exports = router;
