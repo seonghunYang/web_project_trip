@@ -83,15 +83,13 @@ router.get('/destinations', catchErrors(async (req, res, next) => {
 }));
 
 
-router.get('/:id', catchErrors(async(req, res, next) => {
+router.get('/:id', needAuth,catchErrors(async(req, res, next) => {
   const product = await Product.findById(req.params.id);
   const comments = await Comment.find({product: req.params.id}).populate('author');;
   product.numReads++;
-
-  if (req.isAuthenticated()){
-    const reservation = Reservation.findOne({booker: req.user._id});
-  }
   
+  const reservation = await Reservation.findOne({booker: req.user._id});
+
   await product.save();
   res.render('products/detail_product',{product: product, comments: comments, reservation: reservation});
 }));
@@ -130,7 +128,8 @@ router.post('/comment/:id', needAuth,
       author: req.user._id,
       product: req.params.id,
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      starpoint: req.body.starpoint
     });
     if (req.file) {
       const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
@@ -143,7 +142,7 @@ router.post('/comment/:id', needAuth,
 
     const product = await Product.findById(req.params.id);
     product.numComments++;
-
+    product.totalStarPoint= ((product.totalStarPoint*(product.numComments-1))+comment.starpoint)/product.numComments;
     await product.save();
     req.flash('success', '등록에 성공하셨습니다');
     res.redirect('back');

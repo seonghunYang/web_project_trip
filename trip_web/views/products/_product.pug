@@ -10,6 +10,13 @@ dl.col-md-9
   dd.col-md-9= product.destination.name
   dt.col-md-3 가격
   dd.col-md-9= product.price
+  dt.col-md-3 평점
+  dd.col-md-9
+    - var n=0;
+    while n < product.totalStarPoint
+      span.fa.fa-star
+      - n++
+    span (#{product.totalStarPoint})
   dd.col-md-12
     .numbers.
       #[span.number.num-likes= product.numLikes] likes,

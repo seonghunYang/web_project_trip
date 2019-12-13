@@ -13,15 +13,33 @@ block hero-unit
             input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
   
 block content
-  .container
-    .row
-      .col-md-12
-        h2 인기상품
+   .album.py-5.bg-light
+    .container
+      .row
+        .col-md-12
+          h2 인기상품
+        each popular_product in popular_products
+          .col-md-3
+            .card.md-4.shadow-sm
+              h4.title= popular_product.product.title
+              img.img-fluid(src= popular_product.product.img)
+              .card-body
+                p.card-text= popular_product.product.content
+                .d-flex.justify-content-start.align-items-center
+                  a.btn.btn-primary(href= `/products/${popular_product.product.id}`) 보러가기
+                  if currentUser
+                    if currentUser.admin
+                      a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/admin/${popular_product.product.id}/popular?_method=DELETE`) 삭제
 
-    .row
-      .col-md-12
-        h2 핫딜
-    
+          
+      if currentUser
+        if currentUser.admin
+          .row
+            hr
+            a.btn.btn-primary(href='/products' ) 추가하기
+
+
+     
 
 
 

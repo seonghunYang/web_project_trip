@@ -5,6 +5,7 @@ const User = require('../models/user');
 const Destination = require('../models/destination');
 const Product = require('../models/product');
 const Reservation = require('../models/reservation');
+const Popular_product = require('../models/popular_product');
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -66,6 +67,7 @@ router.get('/users', needAuth, catchErrors(async (req, res, next) => {
   res.render('admin/admin_user', {users: users});
 }));
 
+
 router.get('/destination/new', needAuth, catchErrors(async (req, res, next) => {
   res.render('admin/admin_destination');
 }));
@@ -86,6 +88,24 @@ router.get('/:id/reservations', needAuth, catchErrors(async(req, res, next) => {
 router.get('/:id/edit', needAuth, catchErrors(async(req, res, next) => {
   const user = await User.findById(req.params.id);
   res.render('users/edit',{user: user});
+}));
+
+router.get('/:id/popular', needAuth, catchErrors(async(req, res, next) => {
+  const popular_product1 = await Popular_product.findOne({product: req.params.id});
+  
+  if(!popular_product1){
+    var popular_product = new Popular_product({
+      product: req.params.id
+    });
+    await popular_product.save();
+    req.flash('success', "추천상품에 등록했습니다");
+    res.redirect('back');
+  }
+  else{
+    req.flash('danger', "이미 추천 상품에 있습니다.");
+    res.redirect('back');
+  }
+
 }));
 
 router.post('/', catchErrors(async (req, res, next) => {
@@ -120,6 +140,12 @@ router.post('/destination', catchErrors(async (req, res, next) => {
   await destination.save();
   res.redirect("/products/destinations");
 }));
+
+router.delete('/:id/popular', needAuth, catchErrors(async (req, res, next) => {
+  const popular_product = await Popular_product.findOneAndRemove({product: req.params.id});
+  req.flash('success', 'Deleted Successfully.');
+  res.redirect('back');
+}));  
 
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
   const user = await User.findOneAndRemove({_id: req.params.id});

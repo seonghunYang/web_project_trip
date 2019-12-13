@@ -14,7 +14,7 @@ var schema = new Schema({
   numReads: {type: Number, default: 0},
   numLikes: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
-  totalStartPoint: {type: Number, default: 1} //총합 별점
+  totalStarPoint: {type: Number, default: 1} //총합 별점
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
