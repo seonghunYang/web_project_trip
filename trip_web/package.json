@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "async-error-catcher": "^1.0.1",
+    "aws-sdk": "^2.590.0",
     "bcrypt": "^2.0.0",
     "body-parser": "~1.18.2",
     "connect-flash": "^0.1.1",
@@ -32,6 +33,7 @@
     "passport.socketio": "^3.7.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "uuid": "^3.3.3"
   }
 }

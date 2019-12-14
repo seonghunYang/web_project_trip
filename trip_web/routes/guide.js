@@ -10,6 +10,7 @@ const Product = require('../models/product');
 const Reservation = require('../models/reservation');
 const catchErrors = require('../lib/async-error');
 const Destination = require('../models/destination');
+const Whislist = require('../models/whislist');
 
 const mimetypes = {
   "image/jpeg": "jpg",
@@ -102,6 +103,9 @@ router.put('/:id', needAuth, isGuide,
 router.delete('/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
   const product = await Product.findOneAndRemove({_id: req.params.id});
   const guide = await Guide.findOneAndRemove({product: req.params.id});
+  const whislist = await Whislist.deleteMany({product: req.params.id});
+  const reservation = await Reservation.deleteMany({product: req.params.id});
+  
   req.flash('success', '삭제했습니다.');
   res.redirect(`/guide/${req.user._id}`);
 }));  
@@ -129,7 +133,7 @@ router.post('/', needAuth,
   await user.save();
 
   req.flash('success', '트립고와 함께하게 된 것을 환영합니다!');
-  res.render('index');
+  res.redirect('/');
 }));
 
 

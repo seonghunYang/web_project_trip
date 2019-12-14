@@ -18,6 +18,8 @@ block content
       .row
         .col-md-12
           h2 인기상품
+          if !popular_products
+            p 인기상품이 없습니다
         each popular_product in popular_products
           .col-md-3
             .card.md-4.shadow-sm

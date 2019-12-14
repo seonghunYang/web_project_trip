@@ -16,8 +16,14 @@ $(function() {
       $("#totalPrice").val(totalPrice);
     }
   });
+
   $('.datepicker').datepicker({
-    uiLibrary: 'bootstrap4'
+    uiLibrary: 'bootstrap4', 
+    disableDates:  function (date) {
+        const currentDate = new Date();
+        return date > currentDate ? true : false;
+     }
+    
   });    
 
   var $star_rating = $('.star-rating .fa');
@@ -41,4 +47,8 @@ $(function() {
   $(document).ready(function() {
   
   });
+
+
+
+
 });

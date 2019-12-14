@@ -9,4 +9,5 @@ router.get('/', catchErrors(async(req, res, next) =>{
   res.render('index',{popular_products: popular_products});
 }));
 
+
 module.exports = router;

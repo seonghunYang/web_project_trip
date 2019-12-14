@@ -1,16 +1,15 @@
 extends ../layout
 
 include ../includes/_paginate
-//-모델이름 whislist(여행상품) 상품이랑 연결해서 사용
 block content
   .container
     h1.main-title 
-      | whislist
+      | wishlist
       if whislists.total > 0
         .small 총 #{whislists.total} 여행상품이 있습니다.
 
     if !whislists.total  
-      .alert.alert-info whislist가 없습니다.
+      .alert.alert-info wishlist가 없습니다.
     else
       .whislists
         each whislist in whislists.docs

@@ -10,8 +10,7 @@ block content
       .buttons
         button.btn.btn-primary.product-whislist-btn(data-id=product.id)
           span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
-          span #[i.fa.fa-thumbs-up] Like
-        //- todo whislist 연결(ajax로)
+          span #[i.fa.fa-thumbs-up] wishlist
         a.btn.btn-sm.btn-outline-secondary(href=`/products/reservation/${product.id}`) 
           | #[i.fa.fa-pencil] 예약하기
     .product.content.detail
