@@ -6,7 +6,9 @@ const Destination = require('../models/destination');
 const Product = require('../models/product');
 const Reservation = require('../models/reservation');
 const Popular_product = require('../models/popular_product');
-
+const GuideInfo = require('../models/guideInfo');
+const Whislist = require('../models/whislist');
+const Comment = require('../models/comment');
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -149,6 +151,11 @@ router.delete('/:id/popular', needAuth, catchErrors(async (req, res, next) => {
 
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
   const user = await User.findOneAndRemove({_id: req.params.id});
+  const guideInfo = await GuideInfo.findOneAndRemove({guide_id: req.params.id});
+  const guide = await Guide.deleteMany({user_id: req.params.id});
+  const reservation = await Reservation.findOneAndRemove({booker: req.params.id});
+  const whislist = await Whislist.deleteMany({author: req.params.id});
+  const comment = await Comment.deleteMany({author: req.params.id});
   req.flash('success', 'Deleted Successfully.');
   res.redirect('back');
 }));  
