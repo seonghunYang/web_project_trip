@@ -1,0 +1,29 @@
+extends ../layout
+
+include ../includes/_paginate
+//-모델이름 reservation(예약내역) 이랑 연결해서 사용
+block content
+  .container
+    h1.main-title 
+      | 예약내역
+      if reservations.total > 0
+        .small 총 #{reservations.total} 여행상품이 있습니다.
+
+    if !reservations.total
+      .alert.alert-info 예약내역이 없습니다.
+    else
+      .reservations
+        each reservation in reservations.docs
+          .reservations
+            a.title(href=`/products/${reservation.product.id}`)= reservation.product.title
+            dl.row
+              dt.col-md-3 인원
+              dd.col-md-9= reservation.personnel 
+              dt.col-sm-3 가격
+              dd.col-sm-9= reservation.price
+              dt.col-sm-3 예약일자
+              dd.col-sm-9= reservation.bookDate
+            a.btn.btn-sm.btn-outline-secondary(href=`/users/reservations/detail/${reservation.id}`) 
+              | #[i.fa.fa-search] 상세보기
+      //-todo 여행상품 리스트 맞게 수정 상세페이지로 넘기는 라우터
+      +paginate(reservations, `/users/reservations/${currentUser._id}`, query)

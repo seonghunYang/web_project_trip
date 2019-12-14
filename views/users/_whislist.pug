@@ -1,0 +1,13 @@
+.content= whislist.product.content
+.price #{whislist.product.price} 원
+
+    | 
+.row
+  .col-md
+    .numbers.
+      #[span.number.num-likes= whislist.product.numLikes] wishlists,
+      #[span.number.num-comments= whislist.product.numComments] comments,
+      #[span.number.num-views= whislist.product.numReads] reads
+  .col-sm
+    .button
+      a.btn.btn-outline-danger.need-confirm-btn(href=`/users/whislist/${whislist.id}?_method=delete` ) Delete

@@ -1,0 +1,32 @@
+extends ../layout
+
+include ../includes/_paginate
+//-모델이름 products(여행상품)
+block content
+  .container
+    h1.main-title 
+      | 여행상품
+      if products.total > 0
+        .small 총 #{products.total} 여행상품이 있습니다.
+    //- .row.d-flex.justify-content-end  
+    //-   a.btn(href='') 인기순
+    //-   a.btn(href='') 후기순
+    //-   a.btn(href='') 가격순
+    //-   a.btn(href='') 신상품순
+    if !products.total  
+      .alert.alert-info 여행상품이 없습니다
+    else
+      .products
+        each product in products.docs
+          .products.d-flex
+            include _product
+            if(currentUser)
+              if(currentUser.admin)
+                dd.col-md-12
+                  a.btn.btn-primary(href= `/admin/${product.id}/reservations`) 예약 관리
+                  a.btn.btn-primary(href= `/admin/${product.id}/popular`) 추천 상품 등록
+
+            hr
+      //-todo 여행상품 리스트 맞게 수정
+      +paginate(products, '/products', query)
+

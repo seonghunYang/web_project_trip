@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  .container
+    h1.main-title 예약하기
+    form(action=`/products/${product.id}`, method="POST")
+      include _form
+      button.btn.btn-outline-primary(type="submit") 예약 완료
+
+    

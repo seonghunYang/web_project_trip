@@ -1,0 +1,32 @@
+extends ../layout
+
+include ../includes/_paginate
+block content
+  .container
+    h1.main-title 사용자 관리
+      if users.total > 0
+        .small 총 #{users.total}명의 사용자가 있습니다
+
+    if !users.total  
+      .alert.alert-info 사용자가 없습니다
+    else
+      .users
+        each user in users.docs
+          dl.row
+            dt.col-md-3 Name
+            dd.col-md-9= user.name 
+            dt.col-md-3 Email
+            dd.col-md-9
+              a(href=`mailto:${user.email}`)= user.email
+
+            dt.col-md-3 Created At
+            dd.col-md-9= user.createdAt
+              
+            .button        
+              a.btn.btn-sm.btn-outline-secondary(href=`/admin/${user._id}/edit`) 
+                | #[i.fa.fa-pencil] 수정
+              a.btn.btn-sm.btn-outline-secondary.need-confirm-btn(href=`/admin/${user._id}?_method=DELETE`) 
+                | #[i.fa.fa-trash] 삭제
+      +paginate(users, '/admin/users', query)            
+
+      

@@ -1,0 +1,28 @@
+extends ../layout
+
+include ../includes/_paginate
+//-모델이름 products(가이드가 등록한 여행상품)
+block content
+  .container
+    h1.main-title 
+      | 가이드 페이지
+      if products.total > 0
+        .small 총 #{products.total} 여행상품을 등록했습니다.
+    if !products.total  
+      .alert.alert-info 등록한 여행상품이 없습니다! 지금 등록해보세요!!
+    else
+      .products
+        each product in products.docs
+          .products.d-flex
+            include ../products/_product
+              dd.col-md-12
+                a.btn.btn-primary(href= `/guide/${product.id}/userlist`) 예약한 사람 보기
+                |
+                a.btn.btn-outline-secondary(href=`/guide/${product.id}/edit`) 수정
+                | 
+                a.btn.btn-outline-danger.need-confirm-btn(href=`/guide/${product.id}?_method=delete`) 삭제
+      //-todo 여행상품 리스트 맞게 수정
+      +paginate(products, '/guide', query)
+      
+    hr
+    a.btn.btn-primary(href='/guide/register') 지금 상품을 등록해보세요!

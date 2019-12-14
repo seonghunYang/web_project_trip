@@ -1,0 +1,32 @@
+extends ../layout
+
+include ../includes/_paginate
+block content
+  .container
+    h1.main-title 가이드 정보
+      if guideInfos.total > 0
+        .small 총 #{guideInfos.total}명의 가이드가 있습니다
+
+    if !guideInfos.total  
+      .alert.alert-info 등록한 가이드가 없습니다
+    else
+      .guideInfo
+        each guideInfo in guideInfos.docs
+          .guideInfo.d-flex
+            .guideImg.col-md-2 
+              img.img-fluid(src= guideInfo.img)
+            dl.col-md-9
+              dt.col-md-3 이름
+              dd.col-md-9= guideInfo.guide_id.name
+              dt.col-md-3 전화번호
+              dd.col-md-9= guideInfo.phone
+              dt.col-md-3 소개
+              dd.col-md-9= guideInfo.introduce
+
+              
+            .button        
+              a.btn.btn-sm.btn-outline-secondary(href=`/guideInfo/${guideInfo.guide_id._id}`) 
+                | #[i.fa.fa-search] 상세보기
+      +paginate(guideInfos, '/guideInfo', query)            
+
+      

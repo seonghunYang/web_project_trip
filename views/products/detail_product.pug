@@ -1,0 +1,66 @@
+extends _share
+
+block content
+  .container
+    h1.main-title= product.title
+
+    .product.detail
+      include _product
+    
+      .buttons
+        button.btn.btn-primary.product-whislist-btn(data-id=product.id)
+          span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+          span #[i.fa.fa-thumbs-up] wishlist
+        a.btn.btn-sm.btn-outline-secondary(href=`/products/reservation/${product.id}`) 
+          | #[i.fa.fa-pencil] 예약하기
+    .product.content.detail
+      #{product.detail_content}
+    |
+    .product.course=product.course
+    |
+
+    #fb-root
+    .fb-share-button(data-href=`http://localhost:3000/products/${product.id}` data-layout='button_count')
+
+
+    if currentUser
+      if reservation 
+        hr
+        h2 후기 남기기
+        form(action=`/products/comment/${product.id}`, method='POST')
+          .form-group
+            label(for="title") 제목
+            input.form-control(type="text", name="title", placeholder="제목")
+            include _starrating
+          .form-group
+            label(for='content') Your Answer
+            textarea.form-control(name="content", rows="5")
+          .form-group
+            label(for='img') 여행사진
+            input.form-control(type="file", name="img")
+          
+          button.btn.btn-primary(type="submit") 후기등록
+    
+    if product.numComments > 0
+      hr
+      p 총 #{product.numComments}개의 후기들
+      .comments.detail
+        each comment in comments
+          include _comment
+
+  script(src='/javascripts/whislist.js')
+  script.
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+
+
+
+    

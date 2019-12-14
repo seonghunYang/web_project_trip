@@ -1,0 +1,22 @@
+extends ../layout
+
+include ../includes/_paginate
+//- 모델 product
+block content
+  .container
+    h1.main-title 상세 정보
+      if products.total > 0
+        .small 총 #{products.total} 여행상품을 등록하셨습니다
+
+    if !products.total  
+      .alert.alert-info 등록한 여행상품이 없습니다
+    else
+      .guide.product    
+        h3 등록한 상품
+        each product in products.docs
+          .products.d-flex
+            include ../products/_product
+      
+
+      +paginate(products, `/guideInfo/${user._id}`, query)
+
