@@ -14,7 +14,9 @@ var schema = new Schema({
   numReads: {type: Number, default: 0},
   numLikes: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
-  totalStarPoint: {type: Number, default: 1} //총합 별점
+  totalStarPoint: {type: Number, default: 1},
+  meeting: {type: String}
+
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

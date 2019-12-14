@@ -13,6 +13,8 @@ block content
           span #[i.fa.fa-thumbs-up] wishlist
         a.btn.btn-sm.btn-outline-secondary(href=`/products/reservation/${product.id}`) 
           | #[i.fa.fa-pencil] 예약하기
+    .product.meeting
+      #{product.meeting}
     .product.content.detail
       #{product.detail_content}
     |

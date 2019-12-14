@@ -93,7 +93,7 @@ router.put('/:id', needAuth, isGuide,
     product.price = req.body.price;
     product.course = req.body.course;
     product.detail_content = req.body.detail_content;
-    
+    product.meeting = req.body.meeting;
     product.save();
 
     req.flash('success','수정되었습니다');
@@ -152,7 +152,8 @@ router.post('/register', needAuth, isGuide,
     destination: destination.id,
     price: req.body.price,
     course: req.body.course,
-    detail_content: req.body.detail_content
+    detail_content: req.body.detail_content,
+    meeting: req.body.meeting
     });
     if (req.file) {
       const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
