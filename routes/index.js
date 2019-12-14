@@ -13,9 +13,10 @@ const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
 console.log(process.env.AWS_ACCESS_KEY_ID, process.env.AWS_SECRET_ACCESS_KEY);
 const uuidv4 = require('uuid/v4');
+aws.config.region = 'eu-west-1';
 
 router.get('/s3', function(req, res, next) {
-  const s3 = new aws.S3({region: 'ap-northeast-2'});
+  const s3 = new aws.S3();
   const filename = req.query.filename;
   const type = req.query.type;
   const uuid = uuidv4();
