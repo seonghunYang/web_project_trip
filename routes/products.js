@@ -121,7 +121,7 @@ router.put('/:id', needAuth, catchErrors(async(req, res, next) => {
 }));
 
 router.post('/comment/:id', needAuth,
-      upload.single('imgcom'),
+      upload.single('img'),
       catchErrors(async (req, res, next) => {
 
     var comment = new Comment({
