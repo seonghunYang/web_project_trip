@@ -33,7 +33,7 @@ router.get('/s3', function(req, res, next) {
     }
     res.json({
       signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${uuid}/${filename}`
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${filename}`
     });
   });
 });
