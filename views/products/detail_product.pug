@@ -14,8 +14,10 @@ block content
         a.btn.btn-sm.btn-outline-secondary(href=`/products/reservation/${product.id}`) 
           | #[i.fa.fa-pencil] 예약하기
     hr
-    .meeting 만나는 시간
+    h4.meeting 만나는 시간
+      |
       .product.meeting= product.meeting
+      |
       
     .product.content.detail
       #{product.detail_content}
