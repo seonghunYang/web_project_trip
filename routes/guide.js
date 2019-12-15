@@ -111,21 +111,21 @@ router.delete('/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
 }));  
 
 router.post('/', needAuth,
+      upload.single('img'), 
       catchErrors(async (req, res, next) => {
   var guideInfo = new GuideInfo({
     guide_id: req.user._id,
     introduce: req.body.introduce,
     phone: req.body.phone,
-    residence: req.body.residence,
-    img: req.body.img
+    residence: req.body.residence
   });
-  // if (req.file) {
-  //   const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
-  //   console.log("File ->", req.file); // multer의 output이 어떤 형태인지 보자.
-  //   const filename = guideInfo.id + "/" + req.file.originalname;
-  //   await fs.move(req.file.path, dest + filename);
-  //   guideInfo.img = "/images/uploads/" + filename;
-  // }
+  if (req.file) {
+    const dest = path.join(__dirname, '../public/images/uploads/');  // 옮길 디렉토리
+    console.log("File ->", req.file); // multer의 output이 어떤 형태인지 보자.
+    const filename = guideInfo.id + "/" + req.file.originalname;
+    await fs.move(req.file.path, dest + filename);
+    guideInfo.img = "/images/uploads/" + filename;
+  }
   await guideInfo.save();
 
   const user = req.user;

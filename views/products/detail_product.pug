@@ -14,8 +14,8 @@ block content
         a.btn.btn-sm.btn-outline-secondary(href=`/products/reservation/${product.id}`) 
           | #[i.fa.fa-pencil] 예약하기
     hr
-    .product.meeting
-      #{product.meeting}
+    .product.meeting= product.meeting
+      
     .product.content.detail
       #{product.detail_content}
     |
@@ -23,7 +23,7 @@ block content
     |
 
     #fb-root
-    .fb-share-button(data-href=`http://localhost:3000/products/${product.id}` data-layout='button_count')
+    .fb-share-button(data-href=`https://agile-escarpment-42602.herokuapp.com/products/${product.id}` data-layout='button_count')
 
 
     if currentUser

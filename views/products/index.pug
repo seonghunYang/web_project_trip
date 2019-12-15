@@ -8,11 +8,11 @@ block content
       | 여행상품
       if products.total > 0
         .small 총 #{products.total} 여행상품이 있습니다.
-    //- .row.d-flex.justify-content-end  
-    //-   a.btn(href='') 인기순
-    //-   a.btn(href='') 후기순
-    //-   a.btn(href='') 가격순
-    //-   a.btn(href='') 신상품순
+    .row.d-flex.justify-content-end  
+      //- a.btn(href='') 인기순
+      //- a.btn(href='') 후기순
+      //- a.btn(href='') 가격순
+      //- a.btn(href='') 신상품순
     if !products.total  
       .alert.alert-info 여행상품이 없습니다
     else
