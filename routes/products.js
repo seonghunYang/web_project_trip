@@ -84,7 +84,7 @@ router.get('/destinations', catchErrors(async (req, res, next) => {
 
 
 router.get('/:id', needAuth,catchErrors(async(req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate('destination');
   const comments = await Comment.find({product: req.params.id}).populate('author');;
   product.numReads++;
   
