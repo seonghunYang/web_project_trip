@@ -47,7 +47,7 @@ block content
           
           button.btn.btn-primary(type="submit") 후기등록
     
-    if comments.total
+    if comments.total>0
       hr
       p 총 #{comments.total}개의 후기들
       .comments.detail
