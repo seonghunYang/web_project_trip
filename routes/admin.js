@@ -171,11 +171,11 @@ router.delete('/destination/:id', needAuth, catchErrors(async (req, res, next) =
   const product = await Product.findOne({destination: req.params.id});
   if (!product){
     const destination = await Destination.findByIdAndRemove(req.params.id);
-    req.flash('danger','등록된 상품이 있습니다.')
+    req.flash('success', '삭제했습니다.');
     res.redirect('/products/destinations');
   }
   else{
-    req.flash('success', '삭제했습니다.');
+    req.flash('danger', '등록된 상품이 있습니다 전부 삭제하고 제거하세요');
     res.redirect('/products/destinations');
   }
 })); 

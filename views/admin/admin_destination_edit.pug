@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container
-    h1.main-title 여행지 추가
+    h1.main-title 여행지 수정
     form(action=`/admin/destination/${destination.id}?_method=PUT`, method='POST')
       .form-group
         label(for='name') name
