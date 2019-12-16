@@ -85,7 +85,11 @@ router.get('/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
 
 router.put('/:id', needAuth, isGuide,catchErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
-    
+    const destination = await Destination.findOne({name: req.body.destination});
+    if(!destination){
+      req.flash('danger','여행지를 다시 입력해주세요' );
+      res.redirect('back');
+    }
     product.title = req.body.title;
     product.content = req.body.content;
     product.destination = req.body.destination;
