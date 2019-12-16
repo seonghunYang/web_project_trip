@@ -119,7 +119,7 @@ router.put('/destination/:id', needAuth, catchErrors(async(req, res, next) => {
   const destination = await Destination.findById(req.params.id);
 
   destination.name = req.body.name;
-  destination.content = req.body.name;
+  destination.content = req.body.content;
 
   await destination.save();
 
