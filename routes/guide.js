@@ -92,7 +92,7 @@ router.put('/:id', needAuth, isGuide,catchErrors(async (req, res, next) => {
     }
     product.title = req.body.title;
     product.content = req.body.content;
-    product.destination = destintaion.id;
+    product.destination = destination.id;
     product.price = req.body.price;
     product.course = req.body.course;
     product.detail_content = req.body.detail_content;
