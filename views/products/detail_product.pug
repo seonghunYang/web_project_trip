@@ -47,9 +47,9 @@ block content
           
           button.btn.btn-primary(type="submit") 후기등록
     
-    if product.numComments > 0
+    if comments.total
       hr
-      p 총 #{product.numComments}개의 후기들
+      p 총 #{comments.total}개의 후기들
       .comments.detail
         each comment in comments
           include _comment

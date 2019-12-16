@@ -139,9 +139,9 @@ router.post('/comment/:id', needAuth,
     }
     await comment.save();
 
+    const comments= await Comment.find({product: req.params.id});
     const product = await Product.findById(req.params.id);
-    product.numComments++;
-    product.totalStarPoint= ((product.totalStarPoint*(product.numComments-1))+comment.starpoint)/product.numComments;
+    product.totalStarPoint= ((product.totalStarPoint*(comments.total-1))+comment.starpoint)/product.numComments;
     await product.save();
     req.flash('success', '등록에 성공하셨습니다');
     res.redirect('back');

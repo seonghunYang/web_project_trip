@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container
-    h1.main-title Profile Update
+    h1.main-title 프로필 수정
     form(action=`/users/${user._id}?_method=PUT`, method='POST')
       .form-group
         label(for='name') Name
