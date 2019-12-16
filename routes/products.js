@@ -82,6 +82,10 @@ router.get('/destinations', catchErrors(async (req, res, next) => {
   res.render('products/destination', {destinations: destinations});
 }));
 
+router.get('/destinations/:id/edit', catchErrors(async (req, res, next) => {
+  const destinations = await Destination.findById(req.params.id);
+  res.render('admin/admin_destination_edit', {destinations: destinations});
+}));
 
 router.get('/:id', needAuth,catchErrors(async(req, res, next) => {
   const product = await Product.findById(req.params.id).populate('destination');
@@ -98,6 +102,19 @@ router.get('/reservation/:id', needAuth, catchErrors(async(req, res, next) => {
   const product = await Product.findById(req.params.id);
   res.render('products/reservation', {product: product, reservation: {}});
 }));
+
+router.delete('/destination/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
+  const product = await Product.findOne({destination: req.params.id});
+  if (!product){
+    const destination = await Destination.findByIdAndRemove(req.params.id);
+    req.flash('danger','등록된 상품이 있습니다.')
+    res.redirect('/products/destinations');
+  }
+  else{
+    req.flash('success', '삭제했습니다.');
+    res.redirect('/products/destinations');
+  }
+})); 
 
 router.put('/:id', needAuth, catchErrors(async(req, res, next) => {
   const reservation = await Reservation.findById(req.params.id);

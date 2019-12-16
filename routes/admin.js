@@ -110,6 +110,19 @@ router.get('/:id/popular', needAuth, catchErrors(async(req, res, next) => {
 
 }));
 
+router.put('destination/:id', needAuth, catchErrors(async(req, res, next) => {
+  const destination = await Destination.findById(req.params.id);
+
+  destination.name = req.body.name;
+  destination.content = req.body.name;
+
+  await destination.save();
+
+  req.flash('success',"수정했습니다");
+  res.redirect(`/products/destinations`);
+
+}));
+
 router.post('/', catchErrors(async (req, res, next) => {
   var err = validateForm(req.body, {needPassword: true});
   if (err) {

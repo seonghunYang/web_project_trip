@@ -16,9 +16,15 @@ block content
           dt.col-md-3
             a(href=`/products/destinations/${destination.id}`)= destination.name
           dd.col-md-9= destination.content 
+        if(currentUser)
+          if(currentUser.admin)
+            a.btn.btn-outline-primary(href=`/admin/destination/${destination.id}/edit`) 수정
+            |
+            a.btn.btn-outline-primary(href=`/admin/destination/${destination.id}?_method=DELETE`) 삭제
           hr         
     hr
     if(currentUser)
       if(currentUser.admin)
-        a.btn.btn-outline-primary(href='/admin/destination/new') 여행지 추가
-            
+        a.btn.btn-outline-primary(href='/admin/destination/new') 여행지 추가 
+        
+          
