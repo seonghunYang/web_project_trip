@@ -83,10 +83,9 @@ router.get('/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
   res.render('guide/index',{products: products});
 }));
 
-router.put('/:id', needAuth, isGuide,
-      upload.single('img'),
-      catchErrors(async (req, res, next) => {
+router.put('/:id', needAuth, isGuide,catchErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
+    
     product.title = req.body.title;
     product.content = req.body.content;
     product.destination = req.body.destination;
@@ -94,7 +93,7 @@ router.put('/:id', needAuth, isGuide,
     product.course = req.body.course;
     product.detail_content = req.body.detail_content;
     product.meeting = req.body.meeting;
-    product.save();
+    await product.save();
 
     req.flash('success','수정되었습니다');
     res.redirect(`/guide/${req.user._id}`);
