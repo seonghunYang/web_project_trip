@@ -115,7 +115,7 @@ router.get('/:id/popular', needAuth, catchErrors(async(req, res, next) => {
 
 }));
 
-router.put('destination/:id', needAuth, catchErrors(async(req, res, next) => {
+router.put('/destination/:id', needAuth, catchErrors(async(req, res, next) => {
   const destination = await Destination.findById(req.params.id);
 
   destination.name = req.body.name;
