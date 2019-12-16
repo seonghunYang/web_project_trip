@@ -83,8 +83,8 @@ router.get('/destinations', catchErrors(async (req, res, next) => {
 }));
 
 router.get('/destinations/:id/edit', catchErrors(async (req, res, next) => {
-  const destinations = await Destination.findById(req.params.id);
-  res.render('admin/admin_destination_edit', {destinations: destinations});
+  const destination = await Destination.findById(req.params.id);
+  res.render('admin/admin_destination_edit', {destination: destination});
 }));
 
 router.get('/:id', needAuth,catchErrors(async(req, res, next) => {
@@ -103,7 +103,7 @@ router.get('/reservation/:id', needAuth, catchErrors(async(req, res, next) => {
   res.render('products/reservation', {product: product, reservation: {}});
 }));
 
-router.delete('/destination/:id', needAuth, isGuide, catchErrors(async (req, res, next) => {
+router.delete('/destination/:id', needAuth, catchErrors(async (req, res, next) => {
   const product = await Product.findOne({destination: req.params.id});
   if (!product){
     const destination = await Destination.findByIdAndRemove(req.params.id);
