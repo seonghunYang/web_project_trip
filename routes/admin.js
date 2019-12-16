@@ -74,6 +74,11 @@ router.get('/destination/new', needAuth, catchErrors(async (req, res, next) => {
   res.render('admin/admin_destination');
 }));
 
+router.get('/destination/:id/edit',needAuth, catchErrors(async (req, res, next) => {
+  const destination = await Destination.findById(req.params.id);
+  res.render('admin/admin_destination_edit', {destination: destination});
+}));
+
 router.get('/:id/reservations', needAuth, catchErrors(async(req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -161,6 +166,19 @@ router.delete('/:id/popular', needAuth, catchErrors(async (req, res, next) => {
   req.flash('success', 'Deleted Successfully.');
   res.redirect('back');
 }));  
+
+router.delete('/destination/:id', needAuth, catchErrors(async (req, res, next) => {
+  const product = await Product.findOne({destination: req.params.id});
+  if (!product){
+    const destination = await Destination.findByIdAndRemove(req.params.id);
+    req.flash('danger','등록된 상품이 있습니다.')
+    res.redirect('/products/destinations');
+  }
+  else{
+    req.flash('success', '삭제했습니다.');
+    res.redirect('/products/destinations');
+  }
+})); 
 
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
   const user = await User.findOneAndRemove({_id: req.params.id});
