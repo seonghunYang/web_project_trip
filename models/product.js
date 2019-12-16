@@ -15,8 +15,8 @@ var schema = new Schema({
   numLikes: {type: Number, default: 0},
   createdAt: {type: Date, default: Date.now},
   totalStarPoint: {type: Number, default: 1},
-  meeting: {type: String}
-
+  meeting: {type: String},
+  course: {type: String}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

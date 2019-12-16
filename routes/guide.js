@@ -54,7 +54,7 @@ router.get('/register', needAuth, isGuide, catchErrors(async (req, res, next) =>
 }));
 
 router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate('destination');
   res.render('guide/edit',{product: product});
 }));
 
@@ -92,7 +92,7 @@ router.put('/:id', needAuth, isGuide,catchErrors(async (req, res, next) => {
     }
     product.title = req.body.title;
     product.content = req.body.content;
-    product.destination = req.body.destination;
+    product.destination = destintaion.id;
     product.price = req.body.price;
     product.course = req.body.course;
     product.detail_content = req.body.detail_content;
